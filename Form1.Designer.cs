@@ -1,16 +1,16 @@
-﻿namespace CMSWinFormsApp
+﻿namespace WindowsFormsApp1
 {
-    partial class Form1
+    partial class EmployeeRecordForm
     {
         /// <summary>
-        ///  Required designer variable.
+        /// 必需的设计器变量。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// 清理所有正在使用的资源。
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,109 +20,81 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Windows 窗体设计器生成的代码
 
         /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// 设计器支持所需的方法 - 不要修改
+        /// 使用代码编辑器修改此方法的内容。
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            menuStrip1 = new MenuStrip();
-            workerToolStripMenuItem = new ToolStripMenuItem();
-            customerToolStripMenuItem = new ToolStripMenuItem();
-            jobDetailsToolStripMenuItem = new ToolStripMenuItem();
-            reportsToolStripMenuItem = new ToolStripMenuItem();
-            exitToolStripMenuItem = new ToolStripMenuItem();
-            menuStrip1.SuspendLayout();
-            SuspendLayout();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.statusBar1 = new System.Windows.Forms.StatusBar();
+            this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).BeginInit();
+            this.SuspendLayout();
             // 
-            // label1
+            // treeView1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 25.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(239, 194);
-            label1.Name = "label1";
-            label1.Size = new Size(595, 48);
-            label1.TabIndex = 0;
-            label1.Text = "Customer Maintenance Protect";
+            this.treeView1.Location = new System.Drawing.Point(-4, 2);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(240, 352);
+            this.treeView1.TabIndex = 0;
             // 
-            // menuStrip1
+            // listView1
             // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { workerToolStripMenuItem, customerToolStripMenuItem, jobDetailsToolStripMenuItem, reportsToolStripMenuItem, exitToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(802, 28);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
+            this.listView1.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(242, 2);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(456, 352);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
             // 
-            // workerToolStripMenuItem
+            // statusBar1
             // 
-            workerToolStripMenuItem.Name = "workerToolStripMenuItem";
-            workerToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.W;
-            workerToolStripMenuItem.Size = new Size(77, 24);
-            workerToolStripMenuItem.Text = "&Worker";
-            workerToolStripMenuItem.Click += workerToolStripMenuItem_Click;
+            this.statusBar1.Location = new System.Drawing.Point(0, 354);
+            this.statusBar1.Name = "statusBar1";
+            this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
+            this.statusBarPanel1});
+            this.statusBar1.ShowPanels = true;
+            this.statusBar1.Size = new System.Drawing.Size(698, 22);
+            this.statusBar1.TabIndex = 2;
+            this.statusBar1.Text = "statusBar1";
             // 
-            // customerToolStripMenuItem
+            // statusBarPanel1
             // 
-            customerToolStripMenuItem.Name = "customerToolStripMenuItem";
-            customerToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.C;
-            customerToolStripMenuItem.Size = new Size(94, 24);
-            customerToolStripMenuItem.Text = "&Customer";
-            customerToolStripMenuItem.Click += customerToolStripMenuItem_Click;
+            this.statusBarPanel1.Name = "statusBarPanel1";
+            this.statusBarPanel1.Text = "Click the employee code to view details";
+            this.statusBarPanel1.Width = 240;
             // 
-            // jobDetailsToolStripMenuItem
+            // EmployeeRecordForm
             // 
-            jobDetailsToolStripMenuItem.Name = "jobDetailsToolStripMenuItem";
-            jobDetailsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.J;
-            jobDetailsToolStripMenuItem.Size = new Size(102, 24);
-            jobDetailsToolStripMenuItem.Text = "&Job Details";
-            jobDetailsToolStripMenuItem.Click += jobDetailsToolStripMenuItem_Click;
-            // 
-            // reportsToolStripMenuItem
-            // 
-            reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            reportsToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.R;
-            reportsToolStripMenuItem.Size = new Size(81, 24);
-            reportsToolStripMenuItem.Text = "&Reports";
-            reportsToolStripMenuItem.Click += reportsToolStripMenuItem_Click;
-            // 
-            // exitToolStripMenuItem
-            // 
-            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.X;
-            exitToolStripMenuItem.Size = new Size(49, 24);
-            exitToolStripMenuItem.Text = "&Exit";
-            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
-            // 
-            // Form1
-            // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(802, 490);
-            Controls.Add(label1);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
-            Name = "Form1";
-            Text = "Form1";
-            Load += Form1_Load;
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(710, 361);
+            this.Controls.Add(this.statusBar1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.treeView1);
+            this.MaximizeBox = false;
+            this.Name = "EmployeeRecordForm";
+            this.Text = "Employee Records Monitoring System";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel1)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private Label label1;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem workerToolStripMenuItem;
-        private ToolStripMenuItem customerToolStripMenuItem;
-        private ToolStripMenuItem jobDetailsToolStripMenuItem;
-        private ToolStripMenuItem reportsToolStripMenuItem;
-        private ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.StatusBar statusBar1;
+        private System.Windows.Forms.StatusBarPanel statusBarPanel1;
     }
 }
+
