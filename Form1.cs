@@ -3,147 +3,162 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Security.Policy;
 
-namespace MaoRuiERSWindowsFormsApp1
+namespace Dabing1202Project3CLSApp
 {
-    public partial class EmployeeRecordsForm : Form
+    public partial class frmCreative : Form
     {
-        private TreeNode tvRootNode;
-
-        public EmployeeRecordsForm()
+        private Icon m_ready = new Icon(SystemIcons.Information, 40, 40);
+        public frmCreative()
         {
             InitializeComponent();
-            PopulateTreeView();
-            initalizeListView();
         }
 
-        private void statusBar1_PanelClick(object sender, StatusBarPanelClickEventArgs e)
+        private void frmCreative_Load(object sender, EventArgs e)
         {
-
+            txtSource.Text = "D:\\Creative\\Source\\";
+            txtProcessedFile.Text = "D:\\Creative\\Processed\\";
+            txtDest.Text = "D:\\Creative\\Destination\\";
+            optGeneratelog.Checked = true;
         }
 
-        private void EmployeeRecordsForm_Load(object sender, EventArgs e)
+        private void btnOK_Click(object sender, EventArgs e)
         {
-
-        }
-        private void PopulateTreeView()
-        {
-            statusBarPanel1.Tag = "RefreshingEmployee Code. please wait...";
-            this.Cursor = Cursors.WaitCursor;
-            treeView1.Nodes.Clear();
-            tvRootNode = new TreeNode("Emplyoee Records");
-            this.Cursor = Cursors.Default;
-            treeView1.Nodes.Add(tvRootNode);
-
-            TreeNodeCollection nodecollection = tvRootNode.Nodes;
-            XmlTextReader reader = new XmlTextReader("D:\\MyReops\\WindowsFormsApp1\\WindowsFormsApp1\\EmpRec.xml");
-            reader.MoveToElement();
-            try
+            if (!Directory.Exists(txtSource.Text))
             {
-                while (reader.Read())
-                {
-                    if (reader.HasAttributes && reader.NodeType == XmlNodeType.Element)
-                    {
-                        reader.MoveToElement();//<EmpRecordsData>
-                        reader.MoveToElement();//<Ecode
-
-                        reader.MoveToAttribute("Id");//Id="E001"
-                        String strVal = reader.Value;//E001
-
-                        reader.Read();
-                        reader.Read();
-                        if (reader.Name == "Dept")
-                        {
-                            reader.Read();
-                        }
-                        TreeNode EcodeNode = new TreeNode(strVal);
-                        nodecollection.Add(EcodeNode);
-
-
-
-                    }
-                }
-                statusBarPanel1.Tag = "Click on an emplyoee code to see their record.";
-            }
-            catch (XmlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        protected void initalizeListView()
-        {
-            listView1.Clear();
-            listView1.Columns.Add("Emplyoee Name", 255, HorizontalAlignment.Left);
-            listView1.Columns.Add("Date of Join", 70, HorizontalAlignment.Right);
-            listView1.Columns.Add("Gread", 105, HorizontalAlignment.Left);
-            listView1.Columns.Add("salary", 105, HorizontalAlignment.Left);
-        }
-        protected void PopulateListView(TreeNode crrNode)
-        {
-            initalizeListView();
-            XmlTextReader listRead = new XmlTextReader("D:\\MyReops\\WindowsFormsApp1\\WindowsFormsApp1\\EmpRec.xml");
-            listRead.MoveToElement();
-            while (listRead.Read())
-            {
-                String strNodeName;
-                string strNodePath;
-                string name;
-                String gread;
-                string doj;
-                String sal;
-                String[] strItemsArr = new string[4];
-                listRead.MoveToFirstAttribute();//Id="E001"
-                strNodeName = listRead.Value;
-                strNodePath = crrNode.FullPath.Remove(0, 17);
-                if (strNodeName == strNodePath)
-                {
-                    ListViewItem lvi;
-                    listRead.MoveToNextAttribute();
-                    name = listRead.Value;// name "Michael Preey"
-                    lvi = listView1.Items.Add(name);
-
-                    listRead.Read();
-                    listRead.Read();
-
-                    listRead.MoveToFirstAttribute();
-                    doj = listRead.Value; //DateofJoin="02-02-1999"
-                    lvi.SubItems.Add(doj);
-
-                    listRead.MoveToNextAttribute();
-                    gread = listRead.Value;// Gread="A"
-                    lvi.SubItems.Add(gread); ;
-
-                    listRead.MoveToNextAttribute();
-                    sal = listRead.Value;// salary="1750"
-                    lvi.SubItems.Add(sal);
-
-                    listRead.MoveToNextAttribute();
-                    listRead.MoveToElement();
-                    listRead.ReadString();
-                }
-            }
-        }//end
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            TreeNode currNode = e.Node;
-            if (tvRootNode == currNode)
-            {
-                statusBarPanel1.Text = "Double click the Employee Records.";
+                errMessage.SetError(txtSource, "Invalid Source Directory");
+                txtSource.Focus();
+                tabControl1.SelectedTab = tabSource;
                 return;
             }
             else
+                errMessage.SetError(txtSource," ");
+              
+            if (!Directory.Exists(txtProcessedFile.Text))
             {
-                statusBarPanel1.Text = "Click an Emplyoee code to view Individual record";
+                errMessage.SetError(txtProcessedFile, "Invalid Source Directory");
+                txtProcessedFile.Focus();
+                tabControl1.SelectedTab = tabSource;
+                return;
             }
-            PopulateListView(currNode);
+            else
+                errMessage.SetError(txtProcessedFile, " ");
+             if (!Directory.Exists(txtDest.Text))
+            {
+                errMessage.SetError(txtDest, "Invalid Destination Directory");
+                txtDest.Focus();
+                tabControl1.SelectedTab = tabDest;
+                return;
+            }
+            else
+                errMessage.SetError(txtDest, " ");
+            watchDir.EnableRaisingEvents = true;
+            watchDir.Path = txtSource.Text;
+            mnuNotify.Icon = m_ready;
+            mnuNotify.Visible = true;
+            this.ShowInTaskbar = true;
+            this.Hide();
+        }
+
+        private void txtSource_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(Directory.Exists(txtSource.Text))
+            {
+                txtSource.BackColor = Color.White;
+            }
+            else
+            {
+                txtSource.BackColor = Color.Pink;
+            }
+            if (Directory.Exists(txtProcessedFile.Text))
+            {
+                txtProcessedFile.BackColor = Color.White;
+            }
+            else
+            {
+                txtProcessedFile.BackColor = Color.Pink;
+            }
+            if (Directory.Exists(txtDest.Text))
+            {
+                txtDest.BackColor = Color.White;
+            }
+            else
+            {
+                txtDest.BackColor = Color.Pink;
+            }
+        }
+
+        private void txtDest_TextChanged(object sender, EventArgs e)
+        {
+            if (Directory.Exists(txtSource.Text))
+            {
+                txtSource.BackColor = Color.White;
+            }
+            else
+            {
+                txtSource.BackColor = Color.Pink;
+            }
+            if (Directory.Exists(txtProcessedFile.Text))
+            {
+                txtProcessedFile.BackColor = Color.White;
+            }
+            else
+            {
+                txtProcessedFile.BackColor = Color.Pink;
+            }
+            if (Directory.Exists(txtDest.Text))
+            {
+                txtDest.BackColor = Color.White;
+            }
+            else
+            {
+                txtDest.BackColor = Color.Pink;
+            }
+        }
+
+        private void txtDest_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Directory.Exists(txtSource.Text))
+            {
+                txtSource.BackColor = Color.White;
+            }
+            else
+            {
+                txtSource.BackColor = Color.Pink;
+            }
+            if (Directory.Exists(txtProcessedFile.Text))
+            {
+                txtProcessedFile.BackColor = Color.White;
+            }
+            else
+            {
+                txtProcessedFile.BackColor = Color.Pink;
+            }
+            if (Directory.Exists(txtDest.Text))
+            {
+                txtDest.BackColor = Color.White;
+            }
+            else
+            {
+                txtDest.BackColor = Color.Pink;
+            }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void configuerApplicationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mnuNotify.Visible = false;
+            this.ShowInTaskbar = true;
+            this.Show();
         }
     }
 }
